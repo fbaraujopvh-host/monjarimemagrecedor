@@ -1,0 +1,30 @@
+---
+const prints = [
+  '/img/print-1.jpeg',
+  '/img/print-2.jpeg',
+  '/img/print-3.jpeg',
+  '/img/print-4.jpeg',
+  '/img/print-5.jpeg',
+  '/img/print-6.jpeg',
+  '/img/print-7.jpeg',
+];
+---
+
+<section class="px-4 sm:px-8 py-12 max-w-5xl mx-auto" id="prints-depoimentos">
+  <h2 class="text-center text-xl sm:text-3xl font-extrabold mb-8 leading-snug">
+    Veja <span class="bg-yellow-300 text-ink-900 px-1 rounded">quem já está tomando o Monjarim</span> e tendo resultados reais
+  </h2>
+
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+    {prints.map((src, i) => (
+      <img
+        src={src}
+        alt={`Depoimento de WhatsApp ${i + 1}`}
+        width="320"
+        height="640"
+        class="w-full rounded-xl border border-white/10 object-cover"
+        loading="lazy"
+      />
+    ))}
+  </div>
+</section>
