@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import TopBar from '../components/TopBar.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
 import VSL from '../components/VSL.astro';
@@ -8,6 +9,7 @@ import Footer from '../components/Footer.astro';
 ---
 
 <Layout title="Leveza — Emagreça sem dieta restritiva nem academia">
+  <TopBar />
   <Header />
   <main>
     <Hero />
@@ -21,9 +23,10 @@ import Footer from '../components/Footer.astro';
       </p>
       <a
         href="#"
-        class="inline-block w-full sm:w-auto bg-brand-500 hover:bg-brand-600 text-white font-extrabold text-base sm:text-lg px-10 py-4 rounded-xl transition"
+        class="inline-block w-full sm:w-auto text-white font-extrabold uppercase text-sm sm:text-base px-10 py-4 rounded-full transition hover:opacity-90"
+        style="background-color: #c9116b;"
       >
-        Quero minha vaga →
+        Quero conhecer o Monjarim
       </a>
     </section>
   </main>

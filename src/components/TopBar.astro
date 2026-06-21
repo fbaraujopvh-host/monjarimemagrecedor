@@ -1,0 +1,20 @@
+---
+const items = [
+  'DESINCHA',
+  'REDUZ MEDIDAS',
+  'INIBE APETITE',
+  'PERDE PESO DORMINDO',
+  'EFEITO NATURAL',
+];
+---
+
+<div class="w-full text-white py-2 px-4 overflow-hidden" style="background-color: #c9116b;">
+  <p class="text-center text-[11px] sm:text-sm font-extrabold uppercase tracking-wide whitespace-nowrap overflow-x-auto sm:overflow-visible">
+    {items.map((item, i) => (
+      <>
+        <span>{item}</span>
+        {i < items.length - 1 && <span class="mx-2 sm:mx-3 opacity-70">•</span>}
+      </>
+    ))}
+  </p>
+</div>
