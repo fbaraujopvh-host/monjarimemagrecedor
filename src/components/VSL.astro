@@ -1,0 +1,99 @@
+---
+export interface Props {
+  videoSrc?: string;
+  posterSrc?: string;
+  delaySeconds?: number;
+}
+
+const {
+  videoSrc = '/video/vsl.mp4',
+  posterSrc = '/video/poster.jpg',
+  delaySeconds = 180,
+} = Astro.props;
+---
+
+<section class="px-4 sm:px-8 py-6 max-w-3xl mx-auto" id="vsl-section">
+  <div class="relative rounded-2xl overflow-hidden shadow-2xl shadow-black/50 border border-white/10 bg-ink-800">
+    <span class="absolute top-3 left-3 z-10 flex items-center gap-2 bg-black/60 text-xs font-semibold px-2.5 py-1 rounded-full">
+      <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+      EM TRANSMISSÃO
+    </span>
+
+    <video
+      id="vsl-video"
+      class="live-video w-full aspect-video bg-black"
+      src={videoSrc}
+      poster={posterSrc}
+      autoplay
+      muted
+      playsinline
+      controls={false}
+      controlsList="nodownload noremoteplaybook noplaybackrate"
+      disablepictureinpicture
+      oncontextmenu="return false;"
+    >
+    </video>
+
+    <button
+      id="vsl-unmute"
+      class="absolute bottom-3 right-3 z-10 bg-white/10 hover:bg-white/20 backdrop-blur text-xs font-semibold px-3 py-2 rounded-lg transition"
+      type="button"
+    >
+      🔊 Ativar som
+    </button>
+  </div>
+
+  <p class="text-center text-white/50 text-xs mt-3">
+    Mantenha o vídeo aberto. As informações mais importantes aparecem ao longo da transmissão.
+  </p>
+
+  <div id="cta-reveal" class="reveal-on-delay mt-6 text-center">
+    <p class="text-lg sm:text-xl font-semibold mb-4">
+      Chegou a sua hora de transformar o corpo e a autoestima.
+    </p>
+    <a
+      href="#oferta"
+      id="cta-button"
+      class="inline-block w-full sm:w-auto bg-brand-500 hover:bg-brand-600 text-white font-extrabold text-base sm:text-lg px-8 py-4 rounded-xl animate-pulseGlow transition"
+    >
+      Quero emagrecer agora →
+    </a>
+    <p class="text-white/50 text-xs mt-3">Vagas limitadas para a turma de hoje</p>
+  </div>
+</section>
+
+<script define:vars={{ delaySeconds }}>
+  const video = document.getElementById('vsl-video');
+  const unmuteBtn = document.getElementById('vsl-unmute');
+  const ctaReveal = document.getElementById('cta-reveal');
+
+  unmuteBtn?.addEventListener('click', () => {
+    if (!video) return;
+    video.muted = !video.muted;
+    unmuteBtn.textContent = video.muted ? '🔊 Ativar som' : '🔇 Silenciar';
+  });
+
+  function revealCta() {
+    ctaReveal?.classList.add('is-visible');
+  }
+
+  // Revela o CTA e os blocos de "pitch" após X segundos de vídeo assistido
+  let watchedSeconds = 0;
+  let revealed = false;
+
+  video?.addEventListener('timeupdate', () => {
+    watchedSeconds = video.currentTime;
+    if (!revealed && watchedSeconds >= delaySeconds) {
+      revealed = true;
+      revealCta();
+    }
+  });
+
+  // Fallback por tempo real de página (caso o usuário pause o vídeo)
+  setTimeout(() => {
+    if (!revealed) {
+      revealed = true;
+      revealCta();
+    }
+  }, delaySeconds * 1000);
+</script>

@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #0b0e14;
+}
+
+/* Esconde os controles nativos do vídeo para simular "transmissão ao vivo" */
+.live-video::-webkit-media-controls {
+  display: none !important;
+}
+
+.live-video {
+  pointer-events: none;
+}
+
+/* Bloco que só aparece após o delay (CTA / textos do pitch) */
+.reveal-on-delay {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity .6s ease, max-height .6s ease;
+}
+
+.reveal-on-delay.is-visible {
+  opacity: 1;
+  max-height: 2000px;
+}

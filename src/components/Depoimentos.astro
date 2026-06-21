@@ -1,0 +1,46 @@
+---
+const depoimentos = [
+  {
+    nome: 'Marina S.',
+    resultado: '-12kg em 4 meses',
+    foto: '/img/depoimento-1.jpg',
+    texto: '"Eu já tinha tentado de tudo. Em 4 meses perdi 12kg sem passar fome e sem academia. Hoje me olho no espelho e sinto orgulho."',
+  },
+  {
+    nome: 'Carla M.',
+    resultado: '-8kg em 60 dias',
+    foto: '/img/depoimento-2.jpg',
+    texto: '"O método é simples e cabe na minha rotina de mãe. Em 2 meses já vi a diferença na roupa e na energia do dia a dia."',
+  },
+  {
+    nome: 'Rafael T.',
+    resultado: '-15kg em 5 meses',
+    foto: '/img/depoimento-3.jpg',
+    texto: '"Comecei sem fé, achando que era igual aos outros. Hoje recuperei minha autoestima e minha saúde voltou aos exames normais."',
+  },
+];
+---
+
+<section class="px-4 sm:px-8 py-12 max-w-5xl mx-auto" id="depoimentos">
+  <h2 class="text-center text-2xl sm:text-3xl font-bold mb-8">
+    Quem já está colhendo os resultados
+  </h2>
+
+  <div class="grid gap-5 sm:grid-cols-3">
+    {depoimentos.map((d) => (
+      <article class="bg-ink-800 border border-white/10 rounded-2xl p-5 flex flex-col items-center text-center">
+        <img
+          src={d.foto}
+          alt={`Foto de ${d.nome}`}
+          width="72"
+          height="72"
+          class="w-18 h-18 rounded-full object-cover mb-4 border-2 border-brand-500"
+          loading="lazy"
+        />
+        <p class="text-sm text-white/80 mb-3">{d.texto}</p>
+        <span class="text-sm font-semibold">{d.nome}</span>
+        <span class="text-xs text-brand-400 font-bold mt-1">{d.resultado}</span>
+      </article>
+    ))}
+  </div>
+</section>
