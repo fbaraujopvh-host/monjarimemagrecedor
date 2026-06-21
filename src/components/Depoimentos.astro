@@ -1,21 +1,21 @@
 ---
 const depoimentos = [
   {
-    nome: 'Marina S.',
-    resultado: '-12kg em 4 meses',
-    foto: '/img/depoimento-1.jpg',
-    texto: '"Eu já tinha tentado de tudo. Em 4 meses perdi 12kg sem passar fome e sem academia. Hoje me olho no espelho e sinto orgulho."',
+    nome: 'Patrícia M.',
+    resultado: '-16,8kg (93,3kg → 76,5kg)',
+    foto: '/img/depoimento-1.jpeg',
+    texto: '"Eu já tinha tentado de tudo. Com o Monjarim consegui perder quase 17kg sem passar fome. Hoje me olho no espelho e sinto orgulho."',
   },
   {
-    nome: 'Carla M.',
-    resultado: '-8kg em 60 dias',
-    foto: '/img/depoimento-2.jpg',
-    texto: '"O método é simples e cabe na minha rotina de mãe. Em 2 meses já vi a diferença na roupa e na energia do dia a dia."',
+    nome: 'Carlos R.',
+    resultado: '-15,5kg (97,5kg → 82kg)',
+    foto: '/img/depoimento-2.jpeg',
+    texto: '"O método é simples e cabe na minha rotina. Em poucos meses já vi a diferença no corpo, na roupa e na energia do dia a dia."',
   },
   {
-    nome: 'Rafael T.',
-    resultado: '-15kg em 5 meses',
-    foto: '/img/depoimento-3.jpg',
+    nome: 'Thamires',
+    resultado: '-23kg',
+    foto: '/img/depoimento-3.jpeg',
     texto: '"Comecei sem fé, achando que era igual aos outros. Hoje recuperei minha autoestima e minha saúde voltou aos exames normais."',
   },
 ];
@@ -28,18 +28,20 @@ const depoimentos = [
 
   <div class="grid gap-5 sm:grid-cols-3">
     {depoimentos.map((d) => (
-      <article class="bg-ink-800 border border-white/10 rounded-2xl p-5 flex flex-col items-center text-center">
+      <article class="bg-ink-800 border border-white/10 rounded-2xl overflow-hidden flex flex-col text-center">
         <img
           src={d.foto}
-          alt={`Foto de ${d.nome}`}
-          width="72"
-          height="72"
-          class="w-18 h-18 rounded-full object-cover mb-4 border-2 border-brand-500"
+          alt={`Antes e depois de ${d.nome}`}
+          width="400"
+          height="400"
+          class="w-full aspect-square object-cover"
           loading="lazy"
         />
-        <p class="text-sm text-white/80 mb-3">{d.texto}</p>
-        <span class="text-sm font-semibold">{d.nome}</span>
-        <span class="text-xs text-brand-400 font-bold mt-1">{d.resultado}</span>
+        <div class="p-5 flex flex-col items-center">
+          <p class="text-sm text-white/80 mb-3">{d.texto}</p>
+          <span class="text-sm font-semibold">{d.nome}</span>
+          <span class="text-xs text-brand-400 font-bold mt-1">{d.resultado}</span>
+        </div>
       </article>
     ))}
   </div>
