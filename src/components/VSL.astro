@@ -1,15 +1,15 @@
 ---
 export interface Props {
-  videoSrc?: string;
-  posterSrc?: string;
+  youtubeId?: string;
   delaySeconds?: number;
 }
 
 const {
-  videoSrc = '/video/vsl.mp4',
-  posterSrc = '/video/poster.jpg',
+  youtubeId = 'A7ja3QH-HgU',
   delaySeconds = 180,
 } = Astro.props;
+
+const embedSrc = `https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=1&controls=0&modestbranding=1&rel=0&disablekb=1&playsinline=1&enablejsapi=1`;
 ---
 
 <section class="px-4 sm:px-8 py-6 max-w-4xl mx-auto" id="vsl-section">
@@ -19,20 +19,17 @@ const {
       EM TRANSMISSÃO
     </span>
 
-    <video
+    <iframe
       id="vsl-video"
       class="live-video w-full aspect-video bg-black"
-      src={videoSrc}
-      poster={posterSrc}
-      autoplay
-      muted
-      playsinline
-      controls={false}
-      controlsList="nodownload noremoteplaybook noplaybackrate"
-      disablepictureinpicture
+      src={embedSrc}
+      title="Vídeo"
+      frameborder="0"
+      allow="autoplay; encrypted-media"
+      allowfullscreen={false}
       oncontextmenu="return false;"
     >
-    </video>
+    </iframe>
 
     <button
       id="vsl-unmute"
@@ -67,10 +64,19 @@ const {
   const unmuteBtn = document.getElementById('vsl-unmute');
   const ctaReveal = document.getElementById('cta-reveal');
 
+  let muted = true;
+
+  function sendYouTubeCommand(func) {
+    video?.contentWindow?.postMessage(
+      JSON.stringify({ event: 'command', func, args: [] }),
+      '*'
+    );
+  }
+
   unmuteBtn?.addEventListener('click', () => {
-    if (!video) return;
-    video.muted = !video.muted;
-    unmuteBtn.textContent = video.muted ? '🔊 Ativar som' : '🔇 Silenciar';
+    muted = !muted;
+    sendYouTubeCommand(muted ? 'mute' : 'unMute');
+    unmuteBtn.textContent = muted ? '🔊 Ativar som' : '🔇 Silenciar';
   });
 
   function revealCta() {
@@ -78,18 +84,8 @@ const {
   }
 
   // Revela o CTA e os blocos de "pitch" após X segundos de vídeo assistido
-  let watchedSeconds = 0;
   let revealed = false;
 
-  video?.addEventListener('timeupdate', () => {
-    watchedSeconds = video.currentTime;
-    if (!revealed && watchedSeconds >= delaySeconds) {
-      revealed = true;
-      revealCta();
-    }
-  });
-
-  // Fallback por tempo real de página (caso o usuário pause o vídeo)
   setTimeout(() => {
     if (!revealed) {
       revealed = true;
