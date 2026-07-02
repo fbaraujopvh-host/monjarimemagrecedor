@@ -39,7 +39,7 @@ const embedSrc = `https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=1&c
     Mantenha o vídeo aberto. As informações mais importantes aparecem ao longo da transmissão.
   </p>
 
-  <div id="cta-reveal" class="reveal-on-delay mt-6 text-center">
+  <div id="cta-reveal" class="mt-6 text-center">
     <p class="text-lg sm:text-xl font-semibold mb-4">
       Chegou a sua hora de transformar o corpo e a autoestima.
     </p>
@@ -54,10 +54,9 @@ const embedSrc = `https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=1&c
   </div>
 </section>
 
-<script define:vars={{ delaySeconds }}>
+<script>
   const video = document.getElementById('vsl-video');
   const unmuteBtn = document.getElementById('vsl-unmute');
-  const ctaReveal = document.getElementById('cta-reveal');
 
   let muted = true;
 
@@ -73,18 +72,4 @@ const embedSrc = `https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=1&c
     sendYouTubeCommand(muted ? 'mute' : 'unMute');
     unmuteBtn.textContent = muted ? '🔊 Ativar som' : '🔇 Silenciar';
   });
-
-  function revealCta() {
-    ctaReveal?.classList.add('is-visible');
-  }
-
-  // Revela o CTA e os blocos de "pitch" após X segundos de vídeo assistido
-  let revealed = false;
-
-  setTimeout(() => {
-    if (!revealed) {
-      revealed = true;
-      revealCta();
-    }
-  }, delaySeconds * 1000);
 </script>
